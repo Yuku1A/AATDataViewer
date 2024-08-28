@@ -1,0 +1,39 @@
+button[id$="maximizebutton"] {
+  font-size: 0;
+}
+
+button[id$="maximizebutton"]:nth-of-type(1):before {
+  content: "\1F5D5";
+  font: initial;
+  line-height: 1;
+  display: flex;
+  justify-content: center;
+}
+
+button[id$="maximizebutton"]:nth-of-type(2):before {
+  content: "\1F5D6";
+  font: initial;
+  line-height: 1;
+  display: flex;
+  justify-content: center;
+}
+
+button[id$="closebutton"] {
+  font-size: 0;
+}
+
+button[id$="closebutton"]:before {
+  content: "\1F5D9";
+  font: initial;
+  line-height: 1;
+  display: flex;
+  justify-content: center;
+}
+
+body {
+  margin: 0
+}
+
+:root {
+  --mantine-color-scheme: light
+}
