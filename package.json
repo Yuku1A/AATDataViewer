@@ -14,7 +14,7 @@
     "@mantine/dates": "^7.5.3",
     "@mantine/hooks": "^7.5.3",
     "@reduxjs/toolkit": "^2.2.1",
-    "@tabler/icons-react": "^2.47.0",
+    "@tabler/icons-react": "^3.15.0",
     "clsx": "^2.1.0",
     "dayjs": "^1.11.10",
     "dexie": "^3.2.5",
