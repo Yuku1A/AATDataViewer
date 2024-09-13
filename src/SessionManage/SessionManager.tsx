@@ -11,6 +11,9 @@ import { changeSessionName } from "./SessionNameSlice";
 import { loadTrainRecordStore } from "../TrainRecord/TrainRecordSlice";
 import { loadLSpawnListStore } from "../LSpawn/LSpawnSlice";
 import { loadOPTimerStore } from "../OPTimer/OPTimerSlice";
+import FileDropArea from "../Util/FileDropArea";
+import * as FileUtil from "../Util/FileUtil";
+import { saveAs } from "file-saver";
 
 export default function SessionManager() {
   const tempSessions: any = useLiveQuery(db.getKeys);
@@ -61,6 +64,25 @@ export default function SessionManager() {
     dispatch(loadTrainRecordStore(sessionObj.trainRecord));
   }
 
+  const onDropFile = async (file: File) => {
+    const text = await FileUtil.readTextFile(file);
+    const sessionObj = JSON.parse(text);
+    if (!Session.isThis(sessionObj))
+      return;
+
+    await db.put(sessionObj.sessionName, text);
+  }
+
+  const fileOutput = async (sessionName: string) => {
+    const sessionJsonTxt = await db.get(sessionName);
+    const blob = new Blob([sessionJsonTxt], {type: "text/plain;charset=utf-8"});
+    saveAs(blob, sessionName + ".json")
+  }
+
+  const deleteSession = async (sessionName: string) => {
+    await db.remove(sessionName);
+  }
+
   const columns = useMemo(() => [
     {
       accessorFn: (row) => {
@@ -94,7 +116,8 @@ export default function SessionManager() {
     renderRowActionMenuItems: ({row}) => {
       return (
         <>
-          {/* <Menu.Item onClick={() => copyWindow(row.getValue("trainName"))}>Copy</Menu.Item> */}
+          <Menu.Item onClick={() => fileOutput(row.getValue("session"))}>Export</Menu.Item>
+          <Menu.Item onClick={() => deleteSession(row.getValue("session"))}>Remove</Menu.Item>
         </>
       )
     }, 
@@ -110,22 +133,23 @@ export default function SessionManager() {
 
   return (
     <MantineProvider>
-      <NewSessionSaveModal 
-        opened={newSaveOpened}
-        onClose={newSaveClose}
-        onNewSave={newSaveButton}
-      />
-      <div className="SessionManagerTop">
-        <div>現在のセッション名: {sessionTitle}</div>
-        <div>ここにセッションファイルをD&Dしてセッションをインポート(未実装)</div>
-        <Button onClick={newSaveOpen}>New Save</Button>
-        <Button onClick={overWriteSaveButton}>OverWrite Save</Button>
-        { 
-          // 要素ごとに削除ボタンとエクスポートボタンを設置する
-          // 当然ながらインポートをサポートする
-        }
-      </div>
-      <MantineReactTable table={table} />
+      <FileDropArea onDropFile={onDropFile}>
+        <NewSessionSaveModal 
+          opened={newSaveOpened}
+          onClose={newSaveClose}
+          onNewSave={newSaveButton}
+        />
+        <div className="SessionManagerTop">
+          <div>現在のセッション名: {sessionTitle}</div>
+          <div>ここにセッションファイルをD&Dしてセッションをインポート</div>
+          <Button onClick={newSaveOpen}>New Save</Button>
+          <Button onClick={overWriteSaveButton}>OverWrite Save</Button>
+          { 
+            // 要素ごとに削除ボタンとエクスポートボタンを設置する
+          }
+        </div>
+        <MantineReactTable table={table} />
+      </FileDropArea>
     </MantineProvider>
   )
 }
