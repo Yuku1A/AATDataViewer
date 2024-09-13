@@ -47,7 +47,7 @@ export default function DataManageView() {
     createWindow(
       <SessionManager />, 
       "SessionManager", 
-      300, 250
+      400, 400
     )
   }
 
