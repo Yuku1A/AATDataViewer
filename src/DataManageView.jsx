@@ -8,6 +8,8 @@ import { Divider, MantineProvider } from "@mantine/core";
 import { NavLink } from "@mantine/core";
 import LSpawnListSelector from "./LSpawn/LSpawnListSelector";
 import CStationSelector from "./CStation/CStationSelector";
+import SessionManager from "./SessionManage/SessionManager";
+import { useAppSelector } from "./hook";
 
 export default function DataManageView() {
   const createWindow = useContext(CreateWindowContext);
@@ -41,10 +43,23 @@ export default function DataManageView() {
     )
   }
 
+  const sessionManager = () => {
+    createWindow(
+      <SessionManager />, 
+      "SessionManager", 
+      300, 250
+    )
+  }
+
+  const sessionName = useAppSelector(state => state.sessionName);
+
   return (
     <MantineProvider>
       <div className="DataManageView">
         <ReadYamlData>
+          <div>
+            現在のセッション: {sessionName}
+          </div>
           <div className="ReadNewSession">
             ここにデータをD&Dして新しいセッションを開始
           </div>
@@ -58,6 +73,9 @@ export default function DataManageView() {
           <NavLink
             label="CStationを開く"
             onClick={() => cStationSelector()} />
+          <NavLink
+            label="SessionManager"
+            onClick={() => sessionManager()} />
         </ReadYamlData>
       </div>
     </MantineProvider>
