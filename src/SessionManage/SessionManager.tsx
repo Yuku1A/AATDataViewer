@@ -117,7 +117,7 @@ export default function SessionManager() {
       />
       <div className="SessionManagerTop">
         <div>現在のセッション名: {sessionTitle}</div>
-        <div>ここにセッションファイルをD&Dしてセッションをインポート</div>
+        <div>ここにセッションファイルをD&Dしてセッションをインポート(未実装)</div>
         <Button onClick={newSaveOpen}>New Save</Button>
         <Button onClick={overWriteSaveButton}>OverWrite Save</Button>
         { 
