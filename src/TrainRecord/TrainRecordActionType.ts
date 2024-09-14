@@ -1,0 +1,1 @@
+export type TrainRecordActionType = "spawn" | "cstation_leave" | "cstation_enter";

@@ -26,7 +26,7 @@ export default function TrainRecordSelector({}) {
 
   const copyItem = (copyFrom, copyTo) => {
     const copyData = structuredClone(trainRecordStore[copyFrom]);
-    dispatch(addTrainRecord(copyTo, copyData));
+    dispatch(addTrainRecord(copyTo, copyData.list));
   }
 
   const keys = useMemo(() => Object.keys(trainRecordStore), [trainRecordStore]);
