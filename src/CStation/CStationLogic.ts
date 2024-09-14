@@ -11,6 +11,12 @@ type calcTrainEntry = {
   trainRecord: TrainRecordList
 }
 
+export function sortCStationActions(cStationActions: CStationAction[]) {
+  return cStationActions.sort((a, b) => {
+    return a.timeAt - b.timeAt;
+  });
+}
+
 export function cStationSimulate(
   cStationName: string, trainRecordStore: TrainRecordStore, lSpawnListStore: LSpawnListStore, opTimer: OPTimer
 ) {
