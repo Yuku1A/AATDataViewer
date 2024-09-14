@@ -2,6 +2,7 @@ import { TrainRecordList, TrainRecordStore } from "../TrainRecord/TrainRecordSli
 import { LSpawnListStore } from "../LSpawn/LSpawnSlice";
 import { OPTimer } from "../OPTimer/OPTimerTypes";
 import { CStationAction } from "./CStationTypes";
+import { TimeCalcInInterval } from "../Util/TimeUtil";
 
 type calcTrainEntry = {
   trainName: string, 
@@ -36,10 +37,9 @@ export function calcActionListInCStation(
       // TrainRecordのエントリ
       const record = recEntry.trainRecord;
       if (record.signName === cStationName) {
-        const interval = parseInt(opTimer.Interval);
-        const spawnTime = parseInt(train.scheduleSpawnTime);
-        const recordedAt = parseInt(recEntry.recordedAt);
-        const timeRaw = (spawnTime + recordedAt) % interval;
+        const timeRaw = TimeCalcInInterval(
+          train.scheduleSpawnTime, recEntry.recordedAt, opTimer.Interval
+        );
         actionListInCStation.push({
           timeAt: timeRaw, 
           action: record.actionType, 

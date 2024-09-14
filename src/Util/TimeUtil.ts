@@ -1,4 +1,4 @@
-export function TimeCalcInInterval(baseTime, addTime, interval) {
+export function TimeCalcInInterval(baseTime: string, addTime: string, interval: string) {
   const intBaseTime = parseInt(baseTime);
   const intAddTime = parseInt(addTime);
   const intInterval = parseInt(interval);
