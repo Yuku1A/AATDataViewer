@@ -5,5 +5,7 @@ export type CStationAction = {
   timeAt: number, 
   action: TrainRecordActionType, 
   acted: boolean, 
-  trainName: string
+  trainName: string,
+  /** これはLSpawnの呼び出しに使うのでstring */ 
+  spawnTime: string
 }
