@@ -4,15 +4,16 @@ import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration"
 import * as UnitUtil from "../Util/UnitUtil"
 import { MantineProvider } from "@mantine/core";
-import { useSelector } from "react-redux";
 import { cStationSimulate, sortCStationActions } from "./CStationLogic";
+import { useAppSelector } from "../hook";
+import { CStationAction } from "./CStationTypes";
 
 dayjs.extend(duration);
 
 export default function CStationTable({CStationName}) {
-  const trainRecordStore = useSelector((state) => state.trainRecordStore);
-  const lSpawnListStore = useSelector((state) => state.lSpawnListStore);
-  const opTimer = useSelector((state) => state.opTimer);
+  const trainRecordStore = useAppSelector((state) => state.trainRecordStore);
+  const lSpawnListStore = useAppSelector((state) => state.lSpawnListStore);
+  const opTimer = useAppSelector((state) => state.opTimer);
 
   const data = useMemo(() => {
     const listBeforeSort =  cStationSimulate(
@@ -22,8 +23,8 @@ export default function CStationTable({CStationName}) {
 
   const columns = useMemo(() => [
     {
-      accessorFn: (row) => {
-        return UnitUtil.MilliTimeStrToHHmmss(row["timeAt"]);
+      accessorFn: (row: CStationAction) => {
+        return UnitUtil.MilliTimeStrToHHmmss(row.timeAt);
       }, 
       header: "時間", 
       id: "timeAt", 
@@ -31,15 +32,15 @@ export default function CStationTable({CStationName}) {
       size: 72, 
     }, 
     {
-      accessorFn: (row) => row["trainName"], 
+      accessorFn: (row: CStationAction) => row.trainName, 
       header: "trainName", 
       id: "trainName", 
       size: 100
     }, 
     {
-      accessorFn: (row) => {
-        const action = row["action"];
-        const acted = row["acted"];
+      accessorFn: (row: CStationAction) => {
+        const action = row.action;
+        const acted = row.acted;
         if (!acted)
           return "pass";
         if (action === "cstation_enter")
@@ -53,7 +54,7 @@ export default function CStationTable({CStationName}) {
       enableEditing: false, 
       size: 50
     }, 
-  ]);
+  ], []);
 
   const table = useMantineReactTable({
     data: data, 
