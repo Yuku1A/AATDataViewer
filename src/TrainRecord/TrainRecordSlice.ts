@@ -1,10 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TrainRecordEntry } from "./TrainRecordEntry";
+import { TrainRecordEntry } from "./TrainRecordTypes";
 
-export interface TrainRecordStore {
-  [T: string]: {
-    list: TrainRecordEntry[]
-  }
+export type TrainRecordStore = {
+  [T: string]: TrainRecordList
+}
+
+export type TrainRecordList = {
+  list: TrainRecordEntry[]
 }
 
 interface TrainRecordPayload {
