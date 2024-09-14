@@ -5,7 +5,7 @@ import duration from "dayjs/plugin/duration"
 import * as UnitUtil from "../Util/UnitUtil"
 import { MantineProvider } from "@mantine/core";
 import { useSelector } from "react-redux";
-import CStationSimulate from "./CStationSimulate";
+import { cStationSimulate } from "./CStationLogic";
 
 dayjs.extend(duration);
 
@@ -15,8 +15,8 @@ export default function CStationTable({CStationName}) {
   const opTimer = useSelector((state) => state.opTimer);
 
   const data = useMemo(() => {
-    const listBeforeSort =  CStationSimulate(
-      trainRecordStore, lSpawnListStore, CStationName, opTimer);
+    const listBeforeSort =  cStationSimulate(
+      CStationName, trainRecordStore, lSpawnListStore, opTimer);
     return listBeforeSort.sort((a, b) => {
       const aTimeMillis = parseInt(a.timeAt);
       const bTimeMillis = parseInt(b.timeAt);

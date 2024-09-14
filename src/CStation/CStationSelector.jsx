@@ -4,7 +4,7 @@ import { useMemo, useContext } from "react";
 import { CreateWindowContext } from "../CreateWindowContext";
 import { useSelector } from "react-redux";
 import CStationTable from "./CStationTable";
-import { collectCStation } from "./CStationSimulate";
+import { collectCStation } from "./CStationLogic";
 
 export default function CStationSelector({}) {
   // keyを作る

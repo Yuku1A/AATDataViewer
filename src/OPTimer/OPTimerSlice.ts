@@ -1,10 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { OPTimer } from "./OPTimerTypes";
+
+const inisital: OPTimer = { Interval: "0" };
 
 const opTimerSlice = createSlice({
   name: "opTimer", 
-  initialState: {}, 
+  initialState: inisital, 
   reducers: {
-    loadOPTimerStore(state, action) {
+    loadOPTimerStore(state, action: {payload: OPTimer}) {
       return action.payload;
     }, 
   }
