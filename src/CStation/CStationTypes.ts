@@ -1,11 +1,12 @@
+import { LSpawn } from "../LSpawn/LSpawnType"
 import { TrainRecordActionType } from "../TrainRecord/TrainRecordTypes"
 
 export type CStationAction = {
   /** 内部用で使うのみ(Reduxにさえ載らない)のでこれで */
-  timeAt: number, 
-  action: TrainRecordActionType, 
-  acted: boolean, 
-  trainName: string,
-  /** これはLSpawnの呼び出しに使うのでstring */ 
-  spawnTime: string
+  timeAt: number;
+  action: TrainRecordActionType;
+  acted: boolean;
+  trainName: string;
+  lSpawnInfo: LSpawn;
+  lSpawnSignName: string;
 }

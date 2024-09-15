@@ -3,12 +3,13 @@ import { LSpawnListStore } from "../LSpawn/LSpawnSlice";
 import { OPTimer } from "../OPTimer/OPTimerTypes";
 import { CStationAction } from "./CStationTypes";
 import { TimeCalcInInterval } from "../Util/TimeUtil";
+import { LSpawn } from "../LSpawn/LSpawnType";
 
 type calcTrainEntry = {
-  trainName: string, 
-  /** まわりがstringなのでstringで保持 */
-  scheduleSpawnTime: string
-  trainRecord: TrainRecordList
+  trainName: string;
+  lSpawnInfo: LSpawn;
+  lSpawnSignName: string;
+  trainRecord: TrainRecordList;
 }
 
 /**
@@ -91,14 +92,15 @@ export function calcActionListInCStation(
       const record = recEntry.trainRecord;
       if (record.signName === cStationName) {
         const timeRaw = TimeCalcInInterval(
-          train.scheduleSpawnTime, recEntry.recordedAt, opTimer.Interval
+          train.lSpawnInfo.scheduleTime, recEntry.recordedAt, opTimer.Interval
         );
         actionListInCStation.push({
           timeAt: timeRaw, 
           action: record.actionType, 
           acted: record.acted, 
           trainName: train.trainName, 
-          spawnTime: train.scheduleSpawnTime
+          lSpawnInfo: train.lSpawnInfo, 
+          lSpawnSignName: train.lSpawnSignName
         })
       }
     }
@@ -117,17 +119,18 @@ export function calcTrainsFromTrainList(
   trainRecords: TrainRecordStore, lSpawnListStore: LSpawnListStore
 ) {
   const trainList: calcTrainEntry[] = [];
-  for (const key of Object.keys(lSpawnListStore)) {
+  for (const lSpawnSignName of Object.keys(lSpawnListStore)) {
     // LSoawn看板ごと
-    const lspnlist = lSpawnListStore[key];
+    const lspnlist = lSpawnListStore[lSpawnSignName];
     for (const entry of lspnlist.list) {
       // スポーンする列車ごと
       for (const trainName of Object.keys(trainRecords)) {
         if (entry.spawnTrainName === trainName) {
           trainList.push({
             trainName: trainName, 
-            scheduleSpawnTime: entry.scheduleTime, 
-            trainRecord: trainRecords[trainName]
+            trainRecord: trainRecords[trainName], 
+            lSpawnInfo: entry, 
+            lSpawnSignName: lSpawnSignName
           });
         }
       }
