@@ -11,53 +11,6 @@ export type CalcTrainEntry = {
   trainRecord: TrainRecordList;
 }
 
-/**
- * 
- * @param cstation ソートされた状態で投入してください
- * @returns { number[] } 支障のある列車のイベント時刻
- */
-export function overlapCheck(cstation: CStationAction[]): number[] {
-  const result: number[] = [];
-  let occupyTrain: number = 0;
-  let event: CStationAction;
-  let lastCheck: boolean = false;
-  for (let i = 0 ; i < cstation.length ; i++) {
-    event = cstation[i];
-    const action = event.action;
-    const acted = event.acted
-
-    // leaveから始まった場合最後尾から開始
-    if (i === 0 && action === "cstation_leave") {
-      lastCheck = true;
-      i = cstation.length - 2;
-      continue;
-    }
-    if (lastCheck) {
-      lastCheck = false;
-      i = -1;
-    }
-
-    // 通常の検査ルーチン
-    if (action === "cstation_enter" && occupyTrain === 0) {
-      // 普通に入線する
-      occupyTrain++;
-      continue;
-    }
-    if (action === "cstation_leave" && occupyTrain === 1 && acted) {
-      // 普通に発車
-      occupyTrain--;
-      continue;
-    }
-    if (action === "cstation_leave" && occupyTrain === 0 && !acted) {
-      // 普通に通過
-      continue;
-    }
-    // ここに来る場合は実際に動かすと衝突などするパターンになる
-    result.push(event.timeAt);
-  }
-  return result;
-}
-
 export function sortCStationActions(cStationActions: CStationAction[]) {
   return cStationActions.sort((a, b) => {
     return a.timeAt - b.timeAt;

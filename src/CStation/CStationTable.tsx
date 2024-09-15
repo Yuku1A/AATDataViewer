@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration"
 import * as UnitUtil from "../Util/UnitUtil"
 import { MantineProvider } from "@mantine/core";
-import { cStationSimulate, overlapCheck, sortCStationActions } from "./CStationLogic";
+import { cStationSimulate, sortCStationActions } from "./CStationLogic";
 import { useAppSelector } from "../hook";
 import { CStationAction } from "./CStationTypes";
 
@@ -20,12 +20,6 @@ export default function CStationTable({CStationName}) {
       CStationName, trainRecordStore, lSpawnListStore, opTimer);
       return sortCStationActions(listBeforeSort);
   }, [trainRecordStore, lSpawnListStore]);
-
-  const overlapCheckResult = useMemo((): number[] => {
-    return overlapCheck(data);
-  }, [data])
-
-  console.log(overlapCheckResult);
 
   const columns = useMemo(() => [
     {
