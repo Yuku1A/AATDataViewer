@@ -1,11 +1,11 @@
 import TrainRecordTable from "../TrainRecord/TrainRecordTable";
-import { useSelector } from "react-redux";
 import { TimeCalcInInterval } from "../Util/TimeUtil";
 import { useMemo } from "react";
+import { useAppSelector } from "../hook";
 
 export default function TrainRecordView({
   trainName, spawnTime, interval}) {
-  const originalData = useSelector((state) => {
+  const originalData = useAppSelector((state) => {
     return state.trainRecordStore[trainName].list;
   });
 
