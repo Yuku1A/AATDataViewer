@@ -1,4 +1,4 @@
-import { LSpawn } from "../LSpawn/LSpawnType"
+import { LSpawnInfo } from "../LSpawn/LSpawnType"
 import { TrainRecordActionType } from "../TrainRecord/TrainRecordTypes"
 
 export type CStationAction = {
@@ -7,6 +7,5 @@ export type CStationAction = {
   action: TrainRecordActionType;
   acted: boolean;
   trainName: string;
-  lSpawnInfo: LSpawn;
-  lSpawnSignName: string;
+  lSpawnInfo: LSpawnInfo
 }

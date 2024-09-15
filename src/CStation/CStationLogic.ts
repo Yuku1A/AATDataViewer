@@ -3,12 +3,11 @@ import { LSpawnListStore } from "../LSpawn/LSpawnSlice";
 import { OPTimer } from "../OPTimer/OPTimerTypes";
 import { CStationAction } from "./CStationTypes";
 import { TimeCalcInInterval } from "../Util/TimeUtil";
-import { LSpawn } from "../LSpawn/LSpawnType";
+import { LSpawnInfo } from "../LSpawn/LSpawnType";
 
 type calcTrainEntry = {
   trainName: string;
-  lSpawnInfo: LSpawn;
-  lSpawnSignName: string;
+  lSpawnInfo: LSpawnInfo;
   trainRecord: TrainRecordList;
 }
 
@@ -92,15 +91,14 @@ export function calcActionListInCStation(
       const record = recEntry.trainRecord;
       if (record.signName === cStationName) {
         const timeRaw = TimeCalcInInterval(
-          train.lSpawnInfo.scheduleTime, recEntry.recordedAt, opTimer.Interval
+          train.lSpawnInfo.info.scheduleTime, recEntry.recordedAt, opTimer.Interval
         );
         actionListInCStation.push({
           timeAt: timeRaw, 
           action: record.actionType, 
           acted: record.acted, 
           trainName: train.trainName, 
-          lSpawnInfo: train.lSpawnInfo, 
-          lSpawnSignName: train.lSpawnSignName
+          lSpawnInfo: train.lSpawnInfo
         })
       }
     }
@@ -129,8 +127,10 @@ export function calcTrainsFromTrainList(
           trainList.push({
             trainName: trainName, 
             trainRecord: trainRecords[trainName], 
-            lSpawnInfo: entry, 
-            lSpawnSignName: lSpawnSignName
+            lSpawnInfo: {
+              info: entry, 
+              signName: lSpawnSignName
+            }
           });
         }
       }
