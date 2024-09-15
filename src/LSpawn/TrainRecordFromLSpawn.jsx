@@ -1,7 +1,7 @@
 import TrainRecordTable from "../TrainRecord/TrainRecordTable";
-import { TimeCalcInInterval } from "../Util/TimeUtil";
 import { useMemo } from "react";
 import { useAppSelector } from "../hook";
+import { simulateTrainFromLSpawn } from "./LSpawnLogic";
 
 export default function TrainRecordView({
   trainName, spawnTime, interval}) {
@@ -10,13 +10,9 @@ export default function TrainRecordView({
   });
 
   const data = useMemo(() => {
-    const list = [];
-    for (var originalEntry of originalData) {
-      const entry = structuredClone(originalEntry);
-      entry.recordedAt = TimeCalcInInterval(entry.recordedAt, spawnTime, interval);
-      list.push(entry);
-    }
-    return list;
+    return simulateTrainFromLSpawn(
+      originalData, spawnTime, interval
+    );
   }, [originalData])
 
   const onChangeData = () => { }
