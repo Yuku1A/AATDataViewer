@@ -1,3 +1,8 @@
+export type LSpawnInfo = {
+  signName: string;
+  info: LSpawn;
+}
+
 export type LSpawnList = {
   timer: string, 
   list: LSpawn[]
