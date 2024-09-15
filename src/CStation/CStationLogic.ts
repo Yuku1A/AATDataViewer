@@ -5,7 +5,7 @@ import { CStationAction } from "./CStationTypes";
 import { TimeCalcInInterval } from "../Util/TimeUtil";
 import { LSpawnInfo } from "../LSpawn/LSpawnType";
 
-type calcTrainEntry = {
+export type CalcTrainEntry = {
   trainName: string;
   lSpawnInfo: LSpawnInfo;
   trainRecord: TrainRecordList;
@@ -81,7 +81,7 @@ export function cStationSimulate(
 }
 
 export function calcActionListInCStation(
-  cStationName: string, calcTrainList: calcTrainEntry[], opTimer: OPTimer
+  cStationName: string, calcTrainList: CalcTrainEntry[], opTimer: OPTimer
 ) {
   const actionListInCStation: CStationAction[] = []
   for (const train of calcTrainList) {
@@ -116,7 +116,7 @@ export function calcActionListInCStation(
 export function calcTrainsFromTrainList(
   trainRecords: TrainRecordStore, lSpawnListStore: LSpawnListStore
 ) {
-  const trainList: calcTrainEntry[] = [];
+  const trainList: CalcTrainEntry[] = [];
   for (const lSpawnSignName of Object.keys(lSpawnListStore)) {
     // LSoawn看板ごと
     const lspnlist = lSpawnListStore[lSpawnSignName];
