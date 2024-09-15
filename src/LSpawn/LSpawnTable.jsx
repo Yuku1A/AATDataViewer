@@ -7,7 +7,7 @@ import {
   Button, MantineProvider, Space, Text, TextInput, Box, 
   ActionIcon
 } from "@mantine/core";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { changeLSpawnList } from "./LSpawnSlice";
 import "./LSpawnTable.css"
 import { useDisclosure } from "@mantine/hooks";
@@ -15,16 +15,17 @@ import { Modal } from "@mantine/core";
 import { IconTrashX, IconDatabaseEdit, IconExternalLink } from "@tabler/icons-react";
 import { CreateWindowContext } from "../CreateWindowContext";
 import TrainRecordFromLSpawn from "./TrainRecordFromLSpawn"
+import { useAppSelector } from "../hook";
 
 dayjs.extend(duration);
 
 export default function LSpawnTable({LSpawnListName}) {
   const dispatch = useDispatch();
 
-  const data = useSelector((state) => {
+  const data = useAppSelector((state) => {
     return state.lSpawnListStore[LSpawnListName].list;
   });
-  const opTimer = useSelector((state) => state.opTimer);
+  const opTimer = useAppSelector((state) => state.opTimer);
 
   const onChangeList = (value) => {
     value.sort((a, b) => {
@@ -36,7 +37,7 @@ export default function LSpawnTable({LSpawnListName}) {
     dispatch(changeLSpawnList(LSpawnListName, value));
   }
 
-  const onEditRow = async ({table, row, values}) => {
+  const onEditRow = ({table, row, values}) => {
     // 必要な情報を集める
     const newScheduleTimeStringHHmmss = values.scheduleTime;
     const newSpawnTrainName = values.trainName;
