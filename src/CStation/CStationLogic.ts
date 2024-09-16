@@ -51,7 +51,8 @@ export function calcActionListInCStation(
           action: record.actionType, 
           acted: record.acted, 
           trainName: train.trainName, 
-          lSpawnInfo: train.lSpawnInfo
+          lSpawnInfo: train.lSpawnInfo, 
+          cStationName: cStationName
         })
       }
     }

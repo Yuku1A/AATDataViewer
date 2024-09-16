@@ -3,9 +3,10 @@ import { TrainRecordActionType } from "../TrainRecord/TrainRecordTypes"
 
 export type CStationAction = {
   /** 内部用で使うのみ(Reduxにさえ載らない)のでこれで */
-  timeAt: number;
-  action: TrainRecordActionType;
-  acted: boolean;
-  trainName: string;
-  lSpawnInfo: LSpawnInfo
+  readonly timeAt: number;
+  readonly action: TrainRecordActionType;
+  readonly acted: boolean;
+  readonly trainName: string;
+  readonly lSpawnInfo: LSpawnInfo
+  readonly cStationName: string;
 }
