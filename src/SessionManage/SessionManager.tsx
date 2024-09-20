@@ -1,7 +1,7 @@
 import "./SessionManager.css";
 import { useMemo, useState } from "react";
 import { Button, MantineProvider, Menu, Modal, TextInput } from "@mantine/core";
-import { MantineReactTable, useMantineReactTable } from "mantine-react-table";
+import { createMRTColumnHelper, MantineReactTable, useMantineReactTable } from "mantine-react-table";
 import { useLiveQuery } from "dexie-react-hooks";
 import * as db from "./db";
 import { useAppDispatch, useAppSelector } from "../hook";
@@ -14,16 +14,17 @@ import { loadOPTimerStore } from "../OPTimer/OPTimerSlice";
 import FileDropArea from "../Util/FileDropArea";
 import * as FileUtil from "../Util/FileUtil";
 import { saveAs } from "file-saver";
+import { stringArrayToWrapper, StringWrapper } from "../Util/StringWrapper";
 
 export default function SessionManager() {
-  const tempSessions: any = useLiveQuery(db.getKeys);
+  const tempSessions = useLiveQuery(db.getKeys);
   
-  let sessions: string[];
+  let sessions: StringWrapper[];
 
   if (typeof tempSessions === "undefined") {
     sessions = [];
   } else {
-    sessions = tempSessions;
+    sessions = stringArrayToWrapper(tempSessions);
   }
 
   const trainRecordStore = useAppSelector(state => state.trainRecordStore);
@@ -83,15 +84,19 @@ export default function SessionManager() {
     await db.remove(sessionName);
   }
 
+  const columnHelper = createMRTColumnHelper<StringWrapper>();
+
   const columns = useMemo(() => [
-    {
-      accessorFn: (row) => {
-        return row;
-      }, 
+    columnHelper.accessor((row) => row.value, {
       id: "session", 
       header: "Session", 
       Header: () => (<div></div>), 
-    }
+      mantineTableBodyCellProps: ({cell}) => ({
+        onClick: () => {
+          loadSession(cell.getValue())
+        }
+      })
+    }), 
   ], []);
 
   const table = useMantineReactTable({
@@ -107,17 +112,12 @@ export default function SessionManager() {
       density: "xs", 
       showColumnFilters: true, 
     }, 
-    mantineTableBodyCellProps: ({cell}) => ({
-      onClick: () => {
-        loadSession(cell.getValue() as string);
-      }
-    }), 
     enableRowActions: true, 
     renderRowActionMenuItems: ({row}) => {
       return (
         <>
-          <Menu.Item onClick={() => fileOutput(row.getValue("session"))}>Export</Menu.Item>
-          <Menu.Item onClick={() => deleteSession(row.getValue("session"))}>Remove</Menu.Item>
+          <Menu.Item onClick={() => fileOutput(row.original.value)}>Export</Menu.Item>
+          <Menu.Item onClick={() => deleteSession(row.original.value)}>Remove</Menu.Item>
         </>
       )
     }, 
