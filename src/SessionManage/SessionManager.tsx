@@ -117,7 +117,7 @@ export default function SessionManager() {
       return (
         <>
           <Menu.Item onClick={() => fileOutput(row.original.value)}>Export</Menu.Item>
-          <Menu.Item onClick={() => deleteSession(row.original.value)}>Remove</Menu.Item>
+          <Menu.Item onClick={() => deleteSession(row.original.value)}>Delete</Menu.Item>
         </>
       )
     }, 
