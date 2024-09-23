@@ -31,11 +31,12 @@ export default function SessionManager() {
   const opTimer = useAppSelector(state => state.opTimer);
   const lSpawnListStore = useAppSelector(state => state.lSpawnListStore);
   const sessionTitle = useAppSelector(state => state.sessionName);
+  const pathMutexInfoStore = useAppSelector(state => state.pathMutexInfoStore);
   const dispatch = useAppDispatch();
 
   const createSessionJson = (sessionName: string) => {
     const newSessionObj = new Session(
-      sessionName, trainRecordStore, opTimer, lSpawnListStore
+      sessionName, trainRecordStore, opTimer, lSpawnListStore, pathMutexInfoStore
     )
 
     return JSON.stringify(newSessionObj);

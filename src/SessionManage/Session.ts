@@ -1,9 +1,15 @@
+import { LSpawnListStore } from "../LSpawn/LSpawnSlice";
+import { OPTimer } from "../OPTimer/OPTimerTypes";
+import { PathMutexInfoStore } from "../Path/PathSlice";
+import { TrainRecordStore } from "../TrainRecord/TrainRecordSlice";
+
 export default class Session{
   constructor(
     public readonly sessionName: string, 
-    public readonly trainRecord: any, 
-    public readonly opTimer: any, 
-    public readonly lSpawnList: any
+    public readonly trainRecord: TrainRecordStore, 
+    public readonly opTimer: OPTimer, 
+    public readonly lSpawnList: LSpawnListStore, 
+    public readonly pathMutexInfoStore: PathMutexInfoStore
   ) { }
 
   static isThis(value: unknown): value is Session {

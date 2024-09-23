@@ -10,6 +10,7 @@ import LSpawnListSelector from "./LSpawn/LSpawnListSelector";
 import CStationSelector from "./CStation/CStationSelector";
 import SessionManager from "./SessionManage/SessionManager";
 import { useAppSelector } from "./hook";
+import PathSelector from "./Path/PathSelector";
 
 export default function DataManageView() {
   const createWindow = useContext(CreateWindowContext);
@@ -51,6 +52,14 @@ export default function DataManageView() {
     )
   }
 
+  const pathSelector = () => {
+    createWindow(
+      <PathSelector />, 
+      "PathMutexを選択", 
+      300, 250
+    )
+  }
+
   const sessionName = useAppSelector(state => state.sessionName);
 
   return (
@@ -76,6 +85,9 @@ export default function DataManageView() {
           <NavLink
             label="SessionManager"
             onClick={() => sessionManager()} />
+          <NavLink 
+            label="PathMutexを開く"
+            onClick={() => pathSelector()} />
         </ReadYamlData>
       </div>
     </MantineProvider>
