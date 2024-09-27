@@ -38,7 +38,7 @@ export function cStationSimulate(
   const actionListInCStation = calcActionListInCStation(cStationName, trainList, opTimer);
 
   // できたはず
-  return actionListInCStation
+  return sortCStationActions(actionListInCStation);
 }
 
 export function calcActionListInCStation(
