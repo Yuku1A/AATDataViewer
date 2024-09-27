@@ -100,6 +100,7 @@ export default function DataManageView() {
           <NavLink
             label="OverlapCheckerを開く"
             onClick={() => overlapChecker()} />
+          <a href="https://github.com/Yuku1A/AATDataViewer">Source Code</a>
         </ReadYamlData>
       </div>
     </MantineProvider>
