@@ -17,6 +17,14 @@ export function sortCStationActions(cStationActions: CStationAction[]) {
   });
 }
 
+/**
+ * CStationに対する列車の動きをシミュレート
+ * @param cStationName 
+ * @param trainRecordStore 
+ * @param lSpawnListStore 
+ * @param opTimer 
+ * @returns 
+ */
 export function cStationSimulate(
   cStationName: string, trainRecordStore: TrainRecordStore, lSpawnListStore: LSpawnListStore, opTimer: OPTimer
 ) {
@@ -120,6 +128,11 @@ export function collectTrainAtCStation(
   return trainRecords;
 }
 
+/**
+ * TrainRecordに含まれているすべてのCStationの名前を収集する
+ * @param trainRecordStore TrainRecordStore
+ * @returns CStationの名前
+ */
 export function collectCStation(trainRecordStore: TrainRecordStore) {
   const stationNameList: string[] = [];
   for (const key of Object.keys(trainRecordStore)) {
