@@ -5,7 +5,7 @@ import { CStationAction } from "./CStationTypes";
  * @param cstation ソートされた状態で投入してください
  * @param opTimerInterval OPTimerのinterval
  * @param minimalIntervalInTrains 列車間の最小間隔(ミリ秒単位)
- * @returns 支障のある列車のイベント時刻
+ * @returns 支障のある列車のイベント情報
  */
 export function checkOverlap(
   cstation: readonly CStationAction[], opTimerInterval: string, minInterval: number = 7500
