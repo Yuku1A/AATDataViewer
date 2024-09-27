@@ -24,7 +24,7 @@ export default function CStationTable({CStationName}) {
   const columns = useMemo(() => [
     {
       accessorFn: (row: CStationAction) => {
-        return UnitUtil.MilliTimeStrToHHmmss(row.timeAt);
+        return UnitUtil.MilliTimeNumToHHmmss(row.timeAt);
       }, 
       header: "時間", 
       id: "timeAt", 

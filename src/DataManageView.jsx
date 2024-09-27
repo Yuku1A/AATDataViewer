@@ -11,6 +11,7 @@ import CStationSelector from "./CStation/CStationSelector";
 import SessionManager from "./SessionManage/SessionManager";
 import { useAppSelector } from "./hook";
 import PathSelector from "./Path/PathSelector";
+import OverlapChecker from "./DiagramSupport/OverlapChecker";
 
 export default function DataManageView() {
   const createWindow = useContext(CreateWindowContext);
@@ -60,6 +61,14 @@ export default function DataManageView() {
     )
   }
 
+  const overlapChecker = () => {
+    createWindow(
+      <OverlapChecker />, 
+      "OverlapChecker", 
+      400, 500
+    )
+  }
+
   const sessionName = useAppSelector(state => state.sessionName);
 
   return (
@@ -88,6 +97,9 @@ export default function DataManageView() {
           <NavLink 
             label="PathMutexを開く"
             onClick={() => pathSelector()} />
+          <NavLink
+            label="OverlapCheckerを開く"
+            onClick={() => overlapChecker()} />
         </ReadYamlData>
       </div>
     </MantineProvider>
