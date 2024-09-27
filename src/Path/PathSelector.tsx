@@ -162,6 +162,7 @@ function PathAddModal({opened, onClose, onAdd}: {
       </Grid>
       <Space h="md" />
       <div>起点から終点の構内までを含めて一区間としたい場合は、通過地点に終点駅を含めてください</div>
+      <div>通過地点にはそこに存在するすべてのCStationを入力してください</div>
       <Space h="lg" />
       <div>このPathMutexの名前(内部の識別用にも利用されます)</div>
       <TextInput onChange={(event) => setPathMutexName(event.currentTarget.value)} />
