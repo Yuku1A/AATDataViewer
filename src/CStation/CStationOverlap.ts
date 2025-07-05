@@ -10,7 +10,7 @@ import { CStationAction } from "./CStationTypes";
 export function checkOverlap(
   cstation: readonly CStationAction[], opTimerInterval: string, minInterval: number = 7500
 ) {
-  if (cstation.length === 0)
+  if (cstation.length <= 1)
     return [];
 
   const interval = parseInt(opTimerInterval);
