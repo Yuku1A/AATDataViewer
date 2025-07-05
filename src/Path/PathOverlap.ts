@@ -60,7 +60,13 @@ export function checkPathOverlap(
       lastDirection = direction;
       occupyTrain++;
     } else {
-      occupyTrain--;
+      // 在線列車の数がマイナスになることはあり得ないので
+      // 0の場合減らさない
+      // 0でここに入る場合はインターバルの終わりを跨いで
+      // 在線する列車がある場合なので、全体がチェックされたあとに
+      // これに相当するイベントが正常にチェックされるはず
+      if (occupyTrain !== 0)
+        occupyTrain--;
     }
 
     i++;
