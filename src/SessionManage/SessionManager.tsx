@@ -15,6 +15,7 @@ import FileDropArea from "../Util/FileDropArea";
 import * as FileUtil from "../Util/FileUtil";
 import { saveAs } from "file-saver";
 import { stringArrayToWrapper, StringWrapper } from "../Util/StringWrapper";
+import { loadPathMutexInfo } from "../Path/PathSlice";
 
 export default function SessionManager() {
   const tempSessions = useLiveQuery(db.getKeys);
@@ -64,6 +65,7 @@ export default function SessionManager() {
     dispatch(loadLSpawnListStore(sessionObj.lSpawnList));
     dispatch(loadOPTimerStore(sessionObj.opTimer));
     dispatch(loadTrainRecordStore(sessionObj.trainRecord));
+    dispatch(loadPathMutexInfo(sessionObj.pathMutexInfoStore))
   }
 
   const onDropFile = async (file: File) => {
