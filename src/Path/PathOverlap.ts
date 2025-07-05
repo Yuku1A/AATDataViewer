@@ -67,6 +67,7 @@ export function checkPathOverlap(
       // これに相当するイベントが正常にチェックされるはず
       if (occupyTrain !== 0)
         occupyTrain--;
+      lastTrainLeaveTime = timeAt;
     }
 
     i++;
