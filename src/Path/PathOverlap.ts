@@ -1,4 +1,4 @@
-import { PathAction, PathDirection, PathMutex, PathMutexInfo } from "./PathTypes";
+import { PathAction, PathDirection, PathMutex } from "./PathTypes";
 
 export function checkPathOverlap(
   path: PathMutex, opTimerInterval: string, minInterval: number=7500
