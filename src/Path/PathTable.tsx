@@ -20,7 +20,7 @@ export default function PathTable({pathMutexInfo}: {
   const columns = useMemo(() => [
     {
       accessorFn: (row: PathAction) => {
-        return UnitUtil.MilliTimeStrToHHmmss(row.timeAt);
+        return UnitUtil.MilliTimeNumToHHmmss(row.timeAt);
       }, 
       header: "時間", 
       id: "timeAt", 
